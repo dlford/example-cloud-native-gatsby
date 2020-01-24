@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  dev:
+    volumes:
+      - type: volume
+        source: node_modules
+        target: /app/node_modules
+      - type: volume
+        source: public
+        target: /app/public
+      - type: volume
+        source: cache
+        target: /app/.cache
+      - type: bind
+        source: .
+        target: /app
+    networks:
+      - net1
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8000:8000"
+volumes:
+  node_modules:
+  public:
+  cache:
+networks:
+  net1:
+    name: cloud-native-gatsby

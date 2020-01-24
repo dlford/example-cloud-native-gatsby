@@ -1,0 +1,13 @@
+FROM node:11-alpine
+RUN apk add --no-cache --virtual .gyp python make g++
+WORKDIR /app
+COPY package.json package-lock.json ./
+RUN npm install
+
+RUN npm install --global gatsby-cli
+
+ENV NODE_ENV=development
+ENV CHOKIDAR_USEPOLLING=1
+
+EXPOSE 8000
+CMD ["npm", "run", "develop"]
